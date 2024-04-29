@@ -1,8 +1,6 @@
 Production-old-php/
 Testing/
 index_orig.php
-server-access-key.fingerprint
-server-access-key.private
-server-access-key.pub
-ssh_info.txt
+server*
 venv/
+madhundle/__pycache__
