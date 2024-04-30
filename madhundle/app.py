@@ -1,12 +1,13 @@
-# import os
-from flask import Flask, render_template, current_app, url_for, request, redirect
+import os
+from flask import Flask, render_template, url_for, request, redirect
 # from site import bp
+from flask_mail import Mail, Message
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
     # app = Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(SECRET_KEY='madhundle_secret_key')
+    # app.config.from_mapping(SECRET_KEY='madhundle_secret_key')
 
     # Trying a simpler structure with no instance folder, no separate configs
     # if test_config is None:
@@ -22,7 +23,6 @@ def create_app(test_config=None):
     # except OSError:
     #     pass
 
-
     # a simple page that says hello
     # @app.route('/hello')
     # def hello():
@@ -32,15 +32,24 @@ def create_app(test_config=None):
     def index():
         return render_template('index.html')
 
+    # Set up mail functionality
+    # import mail extension
+    # from madhundle.extensions import mail # Worked on local dev, haven't tried on deployment
+    # from .extensions import mail # Works, but trying not to have relative imports
+    app.config.from_pyfile('app.cfg')
+    mail = Mail(app)
+    # Used in previous blueprint configuration
+    # mail.init_app(app)
+
     def contactEmail(name, email, message):
-        current_app.logger.debug("Emailing", name, email, message)
-        # msg = Message("Contact Message from madhundle.com")
-        # msg.recipients= ['mh@madhundle.com']
-        # msg.html = "<style>body {background-color: #00BDBD; padding: 10px;}</style>"
-        # msg.html += "<p> Name:&nbsp;&nbsp;" + name + "</p>"
-        # msg.html += "<p> Email:&nbsp;&nbsp;" + email + "</p>"
-        # msg.html += "<p style=\"white-space:pre-wrap;\">Message:&nbsp;&nbsp;<br>" + message + "</p>"
-        # mail.send(msg)
+        app.logger.debug("Emailing: %s, %s, %s", name, email, message)
+        msg = Message("Contact Message from madhundle.com")
+        msg.recipients= ['madeline.hundley@gmail.com']
+        msg.html = "<style>body {background-color: #00BDBD; padding: 10px;}</style>"
+        msg.html += "<p> Name:&nbsp;&nbsp;" + name + "</p>"
+        msg.html += "<p> Email:&nbsp;&nbsp;" + email + "</p>"
+        msg.html += "<p style=\"white-space:pre-wrap;\">Message:&nbsp;&nbsp;<br>" + message + "</p>"
+        mail.send(msg)
         return
 
     @app.route('/', methods=['POST'])
@@ -53,8 +62,8 @@ def create_app(test_config=None):
     #        session['sent'] = True
     #        flash("Email sent!", 'alert-success')
         except Exception as e:
-            current_app.logger.debug("Error while sending contact email")
-            current_app.logger.error(e)
+            app.logger.debug("Error while sending contact email")
+            app.logger.error(e)
     #        session['sent'] = False
     #        flash("Email failed to send. Please try again soon.", 'alert-danger')
 
@@ -76,17 +85,6 @@ def create_app(test_config=None):
     
     # trying with import bp directly, not all of site
     # app.register_blueprint(bp)
-
-    # import mail extension
-    # from madhundle.extensions import mail # Works, but commenting out for debugging
-    # from .extensions import mail # Works, but trying not to have relative imports
-    # app.config.from_mapping(
-    #     MAIL_SERVER='smtp.madhundle.com',
-    #     MAIL_PORT=587,
-    #     MAIL_USERNAME='no-reply@madhundle.com',
-    #     MAIL_PASSWORD='no-replyMH',
-    #     MAIL_DEFAULT_SENDER='no-reply@madhundle.com')
-    # mail.init_app(app)
 
     return app
 

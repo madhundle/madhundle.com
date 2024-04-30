@@ -5,4 +5,5 @@ server*
 deployment*
 .gcloudignore
 venv/
+madhundle/app.cfg
 madhundle/__pycache__
