@@ -72,10 +72,12 @@
       <div class="card">
         <div class="card-body">
           <h2 class="card-title">CrashAtCaddy</h2>
-          <h6 class="card-subtitle">See the live site: 
+          <h6 class="card-subtitle">Link to the Live Site: 
             <a href="http://crashatcaddy.com"
               target="_blank">crashatcaddy.com</a></h6>
-          <p class="card-text">This website advertises a short-term rental property.</p>
+          <p class="card-text"><strong>Description: </strong>This website advertises a short-term rental property.</p>
+          <p class="card-text"><strong>Technologies: </strong>JavaScript, Bootstrap, HTML, CSS</p>
+          <p class="card-text"><strong>Hosting: </strong>Amazon S3</p>
         </div>
         <a href="http://crashatcaddy.com" target="_blank">
           <img src="static/crashatcaddy.png" width="100%"></a>
@@ -84,15 +86,32 @@
       </div>
 
       <!--Site-->
-      <div>
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">Fitness Tracker</h2>
+          <h6 class="card-subtitle">Link to the Live Site: 
+            <a href="https://fitness-tracker-6a939.web.app/"
+              target="_blank">https://fitness-tracker-6a939.web.app/</a></h6>
+          <p class="card-text"><strong>Description: </strong>An app to track and record fitness activities.</p>
+          <p class="card-text"><strong>Technologies: </strong>Angular, Angular Material, AngularFire, Firestore, Firebase Authentication, TypeScript, HTML, CSS</p>
+          <p class="card-text"><strong>Hosting: </strong>Firebase</p>
+        </div>
+        <iframe class="card-img-bottom" title="fitness tracker" 
+          src="https://fitness-tracker-6a939.web.app/"></iframe>
       </div>
 
       <!--Site-->
-      <div>
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">This Website</h2>
+          <h6 class="card-subtitle">Link to the Live Site: 
+            <a href="https://madhundle.com/"
+              target="_blank">https://madhundle.com/</a></h6>
+          <p class="card-text"><strong>Description: </strong>A website development portfolio.</p>
+          <p class="card-text"><strong>Technologies: </strong>Python Flask, JavaScript, Bootstrap, HTML, CSS</p>
+          <p class="card-text"><strong>Hosting: </strong>Google Cloud</p>
+        </div>
       </div>
-    </div>
-
-    <div class="container-fluid px-0">
 
     </div>
 
@@ -168,45 +187,3 @@
 </body>
 
 </html>
-
-
-{#
-<?php
-    $error = ""; 
-    $success = "";
-
-    if ($_POST) {
-        if (!$_POST["contactName"]) {
-            $error .= "<p>Your name is required.</p>";
-        }
-        if (!$_POST["contactEmail"]) {
-            $error .= "<p>Your email address is required.</p>";
-        }
-        if (!$_POST["contactMessage"]) {
-            $error .= "<p>A message is required.</p>";
-        }
-        
-        if ($_POST["contactEmail"] && filter_var($_POST["contactEmail"], FILTER_VALIDATE_EMAIL) === false) {
-            $error .= "<p>Invalid email address.</p>";
-        }
-        
-        if ($error != "") {
-            $error = '<div class="alert alert-danger" role="alert">' . $error . '</div>';
-            
-        } else {
-            
-            $emailTo = "mh@madhundle.com";
-            $subject = "Website Message";
-            $content = "Name: " . $_POST['contactName'] . "</br>Message:</br>" . $_POST['contactMessage'];
-            $headers = "From: " . $_POST['contactEmail'];
-
-            if (mail($emailTo, $subject, $content, $headers)) {
-                $success = '<div class="alert alert-success" role="alert"><p>Your message was sent!</p></div>';
-                
-            } else {
-                $error = '<div class="alert alert-danger" role="alert"><p>Sorry, your message failed to send; please try again later.</p></div>';
-            }
-        }
-    }
-?>
-#}
